@@ -17,6 +17,9 @@ for t in range(1, int(input())+1):
     dc = [-1, 1, 0, 0]
     game = [list(map(int, input().split())) for _ in range(N)]
 
+
+    a,b,step = 0, N, 1 if idx in (0, 2) else N-1, -1, -1
+
     for i in range(N):
         for j in range(N):
             if game[i][j]:
