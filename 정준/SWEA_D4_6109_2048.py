@@ -1,6 +1,7 @@
 def rm_zero(lst):
-    for i in range(N):
-        for j in range(N):
+    a,b,step = (0, N, 1) if idx in (0, 2) else (N-1, -1, -1)
+    for i in range(a,b,step):
+        for j in range(a,b,step):
             r, c = i, j
             if not lst[r][c]:
                 if 0 <= i - dr[idx] < N and 0 <= j - dc[idx] < N:
@@ -18,10 +19,10 @@ for t in range(1, int(input())+1):
     game = [list(map(int, input().split())) for _ in range(N)]
 
 
-    a,b,step = 0, N, 1 if idx in (0, 2) else N-1, -1, -1
+    a,b,step = (0, N, 1) if idx in (0, 2) else (N-1, -1, -1)
 
-    for i in range(N):
-        for j in range(N):
+    for i in range(a,b,step):
+        for j in range(a,b,step):
             if game[i][j]:
                 if 0 <= i-dr[idx] < N and 0 <= j-dc[idx] < N:
                     if game[i][j] == game[i-dr[idx]][j-dc[idx]]:
