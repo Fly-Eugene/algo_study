@@ -1,40 +1,54 @@
-
+import sys
+sys.stdin = open('input.txt', 'r')
 
 dr = [1, -1, 0, 0]
 dc = [0, 0, -1, 1]
 
-def move(row, col):
-    global max_move
+def do_2048(start_r, start_c, d_index):
     q = list()
-    q.append([row, col])
-    m_val = 0  # 1일지도모름
+    r, c = start_r, start_c  # i 0
+    for _ in range(N):
+        if 0 <= r < N and 0 <= c < N and arr[r][c]:
+            q.append(arr[r][c])
+            arr[r][c] = 0
+        r, c = r+dr[d_index], c+dc[d_index]
+    print(q)
+    # q.pop(0)으로 꺼내면서 넣어야됨
     while len(q):
-        size = len(q)
-        for j in range(size):
-            row, col = q.pop(0)
-            for i in range(4):
-                nr, nc = row+dr[i], col+dc[i]
-                if 0 <= nr < N and 0 <= nc < N and (rooms[nr][nc] == (rooms[row][col]+1)):
-                    q.append([nr, nc])
-        m_val += 1
-    return m_val
+        p = q.pop(0)
+        if len(q) and p == q[0]:
+            arr[start_r][start_c] = (p*2)
+            q.pop(0)
+        else:
+            arr[start_r][start_c] = p
+        start_r = start_r + dr[d_index]
+        start_c = start_c + dc[d_index]
 
 
 for tc in range(1, int(input())+1):
-    N = int(input())
-    rooms = [list(map(int, input().split())) for _ in range(N)]
-    start_n = N*N
-    max_move = 0
+    N, di = input().split()
+    N = int(N)
+    print(N, di)
 
-    for r in range(N):
-        for c in range(N):
-            # 여기서 함수 호출
-            num = move(r, c)
-            start = rooms[r][c]
-            if num == max_move and start < start_n:
-                start_n = start
-            if num > max_move:
-                max_move = num
-                start_n = start
+    arr = [list(map(int, input().split())) for _ in range(N)]
 
-    print('#{} {} {}'.format(tc, start_n, max_move))
+    for i in range(N):
+        print(arr[i])
+
+    if di == 'up':
+        for i in range(N):
+            do_2048(0, i, 0)
+    elif di == 'down':
+        for i in range(N):
+            do_2048(N-1, i, 1)
+    # 여기서 망함. 시간부족
+    elif di == 'left':
+        for i in range(N):
+            do_2048(i, 0, 2)
+    elif di == 'right':
+        for i in range(N):
+            do_2048(i, N-1, 3)
+
+    print('#{}'.format(tc))
+    for i in range(N):
+        print(' '.join(map(str, arr[i])))
