@@ -1,7 +1,6 @@
 def rm_zero(lst):
-    a,b,step = (0, N, 1) if idx in (0, 2) else (N-1, -1, -1)
-    for i in range(a,b,step):
-        for j in range(a,b,step):
+    for i in range(a, b, step):
+        for j in range(a, b, step):
             r, c = i, j
             if not lst[r][c]:
                 if 0 <= i - dr[idx] < N and 0 <= j - dc[idx] < N:
@@ -9,7 +8,7 @@ def rm_zero(lst):
     return lst
 
 
-for t in range(1, int(input())+1):
+for t in range(1, int(input()) + 1):
     N, S = input().split()
     s = ['left', 'right', 'up', 'down']
     idx = s.index(S)
@@ -18,17 +17,16 @@ for t in range(1, int(input())+1):
     dc = [-1, 1, 0, 0]
     game = [list(map(int, input().split())) for _ in range(N)]
 
+    a, b, step = (0, N, 1) if idx in (0, 2) else (N - 1, -1, -1)
 
-    a,b,step = (0, N, 1) if idx in (0, 2) else (N-1, -1, -1)
-
-    for i in range(a,b,step):
-        for j in range(a,b,step):
+    for i in range(a, b, step):
+        for j in range(a, b, step):
             if game[i][j]:
-                if 0 <= i-dr[idx] < N and 0 <= j-dc[idx] < N:
-                    if game[i][j] == game[i-dr[idx]][j-dc[idx]]:
+                if 0 <= i - dr[idx] < N and 0 <= j - dc[idx] < N:
+                    if game[i][j] == game[i - dr[idx]][j - dc[idx]]:
                         game[i][j] *= 2
-                        game[i-dr[idx]][j-dc[idx]] = 0
-                    elif not game[i-dr[idx]][j-dc[idx]]:
+                        game[i - dr[idx]][j - dc[idx]] = 0
+                    elif not game[i - dr[idx]][j - dc[idx]]:
                         game[i][j], game[i - dr[idx]][j - dc[idx]] = game[i - dr[idx]][j - dc[idx]], game[i][j]
     # 0 제거
     for _ in range(N):
