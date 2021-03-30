@@ -12,8 +12,6 @@ def count_group(st):
             for j in range(N+1):
                 if arr[r][j] == 1:
                     queue.append(j)
-
-
     return
 
 T = int(input())
@@ -38,11 +36,5 @@ for tc in range(1, T+1):
         else:
             count_group(i)
 
-    # 혼자인 사람 찾기
-    only_one = 0
-    for i in range(1, N+1):
-        if 1 not in arr[i]:
-            only_one += 1
-
-    res = cnt + only_one
+    res = cnt
     print(f'#{tc} {res}')
