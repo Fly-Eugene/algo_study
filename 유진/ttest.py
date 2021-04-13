@@ -1,47 +1,37 @@
-# 1. 언니의 가벽 처리를 rec으로 바꿔줘야함
-# 2. 16번째 줄 즈음에 움직일 곳의 rec 검사를 한 번 더 해줘야함 (갈 수 있는 곳인지)
-# 3. 15반째 줄 즈음에 visited check는 그대로 유지한다. (방문을 했던 곳인지 체크)
-def BFS(sr, sc, visited, fr, fc):
-    Q = [(sr, sc)]
-    rec[sr][sc] = 1
-    # direction = ['위', '아래', '왼쪽', '오른쪽']
-    dr = [-1, 1, 0, 0]
-    dc = [0, 0, -1, 1]
+## 방법1. 재귀
+def recursion_fibo(n):
 
-    while Q:
-        r, c = Q.pop(0)
-        for i in range(4):
-            nr, nc = r + dr[i], c + dc[i]
-            if 0 <= nr < N and 0 <= nc < M and not visited[nr][nc]:
-                Q.append((nr, nc))
-                rec[nr][nc] = rec[r][c] + 1
-                if nr == fr and nc == fc:
-                    break
-                # print(direction[i], end=', ')
-    return rec[fr][fc] - 1
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return recursion_fibo(n-1) + recursion_fibo(n-2)
 
 
-N, M = map(int, input().split())
-rec = [list(map(int, input().split())) for _ in range(N)]
-H, W, sr, sc, fr, fc = map(int, input().split())
-H, W, sr, sc, fr, fc = H - 1, W - 1, sr - 1, sc - 1, fr - 1, fc - 1
-visited = [[0] * M for _ in range(N)]
+## 방법2. Memoization
+topdown = [1, 1]
 
-# 사각형의 시작점이 위치할수 없는 부분 미리 방문 표시
-# 벽부분
-for i in range(N):
-    for j in range(M):
-        if rec[i][j] == 1:
-            for ix in range(i, i - H - 1, -1):
-                for jx in range(j, j - W - 1, -1):
-                    visited[ix][jx] = 1
-# 테두리 부분
-for i in range(N - 1, N - 1 - H, -1):
-    visited[i] = [1] * M
-for i in range(N - H):
-    for j in range(M - 1, M - 1 - W, -1):
-        visited[i][j] = 1
+def topdown_fibo(n):
+    # 종료 조건
+    if n == 1 or n == 2:
+        return 1
 
-for _ in range(N):
-    print(visited[_])
-print(BFS(sr, sc, visited, fr, fc))
+    # 이미 계산한 적 있는 문제라면 메모에서 꺼낸다.
+    if n < len(topdown):
+        return topdown[n]
+
+    # 아직 계산하지 않은 문제라면 점화식 계산을 통해 피보나치 결과 반환
+    topdown.append(topdown[n-1] + topdown[n-2])
+    return topdown[n]
+
+## 방법3. DP(Dynamic Programming)
+bottomup = [0] * 100
+
+def bottomup_fibo(n):
+    if n == 1 or n == 2:
+        bottomup[n] = 1
+        return bottomup[n]
+
+    else:
+        for i in range(3, n+1):
+            bottomup[i] = bottomup[i-1] + bottomup[i-2]
+        return bottomup[n]
