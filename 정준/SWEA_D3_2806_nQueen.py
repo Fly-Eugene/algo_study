@@ -1,6 +1,7 @@
 def check(x, y, lst):
     for i in range(len(lst)):
-        if lst[i][0] == x or lst[i][1] == y or abs(lst[i][0]-x) == abs(lst[i][1]-y):
+        # 가로 , 대각선 체크
+        if lst[i][1] == y or abs(lst[i][0]-x) == abs(lst[i][1]-y):
             return False
     else:
         return True
@@ -24,5 +25,4 @@ for t in range(1, int(input()) + 1):
     for i in range(N):
         queen = []
         nQueen(0, i, queen)
-
     print('#{} {}'.format(t, ans))
