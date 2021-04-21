@@ -3,8 +3,7 @@ def check(x, y, lst):
         # 가로 , 대각선 체크
         if lst[i][1] == y or abs(lst[i][0]-x) == abs(lst[i][1]-y):
             return False
-    else:
-        return True
+    return True
 
 
 def nQueen(x, y, queen):
