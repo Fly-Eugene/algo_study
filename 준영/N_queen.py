@@ -10,6 +10,7 @@ def n_queen(idx, stack):
         else: # 겹치는 애가 없으면
             n_queen(idx+1, stack+[(idx, i)])
 
+
 for tc in range(1, int(input())+1):
     N = int(input())
     cnt = 0
