@@ -1,5 +1,3 @@
-import sys
-sys.stdin = open('input2.txt', 'r')
 dr = [-1, 1, 0, 0]
 dc = [0, 0, -1, 1]
 
@@ -25,26 +23,10 @@ def pang(col, top, simulation_block, cnt):
 
 # 맞은 벽돌 깨지는것 구현
 def repeat_pang(pang_order, simulation_block):
-
-    # 디버깅
-    if pang_order == [2, 2, 6]:
-        print('base')
-        for _ in range(len(simulation_block)):
-            print(simulation_block[_])
-        print('---------------')
-
     for col in pang_order:
         top = len(simulation_block[col])-1
-        if top > 0:
+        if top >= 0:
             removed = pang(col, top, simulation_block, 0)
-
-            # 디버깅
-            if pang_order == [2, 2, 6]:
-                print('before')
-                for _ in range(len(simulation_block)):
-                    print(simulation_block[_])
-                print('---------------')
-
             if removed == 0:
                 return 0
             # simulation_block 에서 0 제거후 반복
@@ -53,13 +35,6 @@ def repeat_pang(pang_order, simulation_block):
                     if simulation_block[k][l] == 0:
                         simulation_block[k].pop(l)
 
-        # 디버깅
-
-        if pang_order == [2, 2, 6]:
-            print('after')
-            for _ in range(len(simulation_block)):
-                print(simulation_block[_])
-            print('---------------')
 
     # 남은 블록갯수 카운팅 후 리턴
     result = sum(1 for blocks in simulation_block for block in blocks if block)
