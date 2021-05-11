@@ -18,6 +18,7 @@ def pipe_dfs(r, c, pipe):
         if 0 <= r+1 < N and 0 <= c+1 < N:
             if arr[r+1][c+1] == 0 and arr[r][c+1] == 0 and arr[r+1][c] == 0:
                 pipe_dfs(r+1, c+1, 3)
+
     elif pipe == 2:
         if 0 <= r+1 < N and 0 <= c < N:
             if arr[r+1][c] == 0:

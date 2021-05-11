@@ -61,7 +61,7 @@ def bomb_bfs(r, c, temp_block):
 
 ## 3. 어느 열을 깨트릴건지 중복순열을 구현하는 함수 == perm_rep
 def perm_rep(idx, block):
-    global min_cnt     # 여기서 temp_block을 반드시 global 변수로 선언을 해줘야 한다...
+    global min_cnt
 
     if idx == N:
         cnt = 0
@@ -97,3 +97,5 @@ for tc in range(1, T+1):
 
     print(f'#{tc} {min_cnt}')
 
+
+## result = sum(1 for i in arr for j in i if j)
